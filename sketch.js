@@ -1,16 +1,18 @@
 let cols, rows;
-let cellsize = 40;
+let cellsize = 30;
 let grid = [];
 
 let current;
 
+let stack = [];
+
 function setup() {
-    createCanvas(400, 400);
+    createCanvas(600, 600);
 
     cols = floor(width / cellsize);
     rows = floor(height / cellsize);
 
-    frameRate(5);
+    //frameRate(5);
 
     for (let j = 0; j < rows; j++) {
         for (let i = 0; i < cols; i++) {
@@ -31,12 +33,17 @@ function draw() {
     current.visited = true;
     current.highlight();
     let next = current.checkNeighbors();
-    if (next) {
+    if (next) { //if there are available neighbors
         next.visited = true;
+
+        stack.push(current); //backtracking stack
 
         removeWalls(current, next);
 
         current = next;
+    }
+    else if (stack.length > 0) { //if it's stuck
+        current = stack.pop();
     }
 }
 
