@@ -16,9 +16,19 @@ class Cell {
         if (this.walls[3]) line(x           , y + cellsize, x           , y);
 
         if (this.visited) {
+            noStroke();
             fill(255, 0, 255, 100);
             rect(x, y, cellsize, cellsize);
         }
+    }
+
+    highlight() {
+        let x = this.i * cellsize;
+        let y = this.j * cellsize;
+
+        noStroke();
+        fill(0, 0, 255, 100);
+        rect(x, y, cellsize, cellsize);
     }
 
     index(i, j) {
